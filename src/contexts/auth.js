@@ -1,18 +1,25 @@
 
 import { createContext, useState, useEffect } from 'react'
 
+import { toast } from 'react-toastify';
+
+
 import { auth, db } from '../services/firebaseConnection'
 import { 
     createUserWithEmailAndPassword,
-    onAuthStateChanged
+    onAuthStateChanged,
+    signInWithEmailAndPassword,
+    signOut
  } from 'firebase/auth'
 import { 
     collection, 
     doc, 
-    getDocs, 
+    getDoc, 
     setDoc, 
     serverTimestamp, 
 } from 'firebase/firestore'
+
+
 
 export const AuthContext = createContext({})
 
@@ -26,22 +33,17 @@ function AuthProvider({ children }){
     useEffect(() => {
 
         function loadStorage(){
-            const storageUser = localStorage.getItem('currentUser')
+            const storageUser = localStorage.getItem('systemUser')
             if(storageUser){
                 setUser(JSON.parse(storageUser))
             }
             setLoading(false)
         }
-        async function getUsers(){
-            const data = await getDocs(usersCollectionRef)
-            console.log(data)
-        }
         loadStorage()
-        getUsers()
       
     },[])
 
-    async function signUp(email, password, name){
+    async function register(email, password, name){
         setLoadingAuth(true)
         await createUserWithEmailAndPassword(auth, email, password)
         .then(async value => {
@@ -60,16 +62,47 @@ function AuthProvider({ children }){
             .then( () => {
                 setUser(data)
                 storageUser(data)
+                toast.success('Seja bem vindo!')
                 setLoadingAuth(false)
             })
         })
         .catch( error => {
+            setLoadingAuth(false)
+            toast.error('Ops! algo deu errado')
+        })
+    }
+    async function login(email, password){
+        setLoadingAuth(true)
+        await signInWithEmailAndPassword(auth, email, password)
+        .then(async value => {
+            const uid = value.user.uid
+            const docRef = doc(db, "users", uid);
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+                setUser(docSnap.data())
+                storageUser(docSnap.data())
+                toast.success('Que bom te ver por aqui!')
+                setLoadingAuth(false)
+            } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+            }
+        })
+        .catch( error => {
+            toast.error('Ops! algo deu errado')
             console.log(error)
         })
     }
 
+    async function logout(){
+        await signOut(auth)
+        localStorage.removeItem('systemUser')
+        setUser(null)
+    } 
+
     function storageUser(data){
-        localStorage.setItem('currentUser', JSON.stringify(data))
+        localStorage.setItem('systemUser', JSON.stringify(data))
     }
 
     return(
@@ -78,7 +111,10 @@ function AuthProvider({ children }){
                 signed: !!user, 
                 user, 
                 loading, 
-                signUp
+                loadingAuth,
+                register,
+                login,
+                logout,
             }}
         >
             {children}

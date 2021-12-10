@@ -8,7 +8,7 @@ export default function RouteWrapper({
 }){
 
     const {signed, loading} = useContext(AuthContext)
-    console.log(signed)
+
     if(loading){
         return(
             <div></div>
