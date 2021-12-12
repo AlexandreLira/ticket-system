@@ -35,13 +35,13 @@ form{
     flex-direction: column;
 }
 
-form h1{
+.login form h1{
     text-align: center;
     margin-bottom: 0.5em;
     color: #181C2E
 }
 
-form input{
+.login form input{
     margin-bottom: 15px;
     height: 35px;
     border: 0;
