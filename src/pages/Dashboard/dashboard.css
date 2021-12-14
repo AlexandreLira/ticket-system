@@ -1,0 +1,83 @@
+.dashboard{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.dashboard span{
+    margin: 2em 0;
+    font-weight: 600;
+    font-size: 1.2em;
+}
+
+.new{
+    align-items: center;
+    background-color: #5fd204;
+    border-radius: 5px;
+    border: 0;
+    color: #FFF;
+    display: flex;
+    float: right;
+    margin-bottom: 1.5em;
+    padding: 0.5em;
+    transition: ease-in 0.2s;
+}
+.new svg{
+    margin-right: 5px;
+}
+
+.new:hover{
+    transform: scale(1.1);
+}
+
+table{
+    border: 1px solid #CCC;
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+    border: 0;
+    margin: 0;
+}
+
+table caption{
+    font-size: 1.5em;
+    margin: 0.5em 0 0.75em;
+}
+
+table tr{
+    background-color: #FFF;
+}
+
+table th,
+table td{
+    padding: .62em;
+    text-align: start;
+    border: 1px solid #CCC
+}
+
+table th{
+    font-size: .85em;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+
+}
+
+table td .action{
+    border: 0;
+    padding: 5px;
+    margin-right: 10px;
+    display: inline-block;
+    border-radius: 4px;
+}
+
+table td .action svg{
+    vertical-align: middle;
+}
+
+table td .badge{
+    padding: 4px;
+    border-radius: 3px;
+    color: #FFF;
+}
+

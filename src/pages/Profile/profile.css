@@ -1,6 +1,6 @@
 .container{
     display: flex;
-    background-color: #f8f8f8;
+    background-color: #ffffff;
     border-radius: 5px;
     padding: 0.8em;
     align-items: center;
@@ -45,6 +45,9 @@
    margin-bottom: 1em;
    padding: 0.7em;
    max-width: 600px;
+   border: 0;
+   background-color: #efefef;
+   border-radius: 5px;
 }
 
 .form-profile input:disabled{

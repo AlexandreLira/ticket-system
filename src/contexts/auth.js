@@ -54,8 +54,8 @@ function AuthProvider({ children }){
                 name: name,
                 email: value.user.email,
                 avatarUrl: null,
-                createAt: serverTimestamp(),
-                updateAt: serverTimestamp()
+                createdAt: serverTimestamp(),
+                updatedAt: serverTimestamp()
             }
 
             await setDoc(newUser, data) 
