@@ -81,3 +81,41 @@ table td .badge{
     color: #FFF;
 }
 
+@media screen and (max-width: 1700px){
+    table{
+        border: 0;
+    }
+    table caption{
+        font-size: 1.3em;
+    }
+    table thead{
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+    }
+    table tr{
+        border-bottom: 3px solid;
+        display: block;
+        margin-bottom: 0.65em;
+    }
+    table td{
+        border-bottom: 1px solid #DDD;
+        display: block;
+        font-size: .8em;
+        text-align: right;
+    }
+    table td::before{
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+    table tr:last-child{
+        border-bottom: 0;
+    }
+}
+
