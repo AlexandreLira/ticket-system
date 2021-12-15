@@ -32,7 +32,7 @@
 }
 
 table{
-    border: 1px solid #CCC;
+    border: 1px solid #efefef;
     border-collapse: collapse;
     width: 100%;
     table-layout: fixed;
@@ -53,7 +53,7 @@ table th,
 table td{
     padding: .62em;
     text-align: start;
-    border: 1px solid #CCC
+    border: 1px solid #efefef
 }
 
 table th{
@@ -81,7 +81,7 @@ table td .badge{
     color: #FFF;
 }
 
-@media screen and (max-width: 1700px){
+@media screen and (max-width: 700px){
     table{
         border: 0;
     }
