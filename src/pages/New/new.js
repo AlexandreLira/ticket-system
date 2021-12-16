@@ -1,25 +1,33 @@
 import { useState, useContext, useEffect } from 'react'
 import Header from '../../components/Header/header'
 import Title from '../../components/Title/title'
-import { FiPlusCircle } from 'react-icons/fi'
 import './new.css'
+import { FiPlusCircle } from 'react-icons/fi'
 import { AuthContext } from '../../contexts/auth'
-import { collection, getDoc, getDocs, orderBy, query, where } from 'firebase/firestore'
+import { 
+    addDoc,
+    collection, 
+    getDocs, 
+    orderBy, 
+    query, 
+    serverTimestamp,
+} from 'firebase/firestore'
 import { db } from '../../services/firebaseConnection'
-
+import { toast } from 'react-toastify'
 function New() {
     const [mattersList, setMattersList]     = useState(["Suporte", "Visita ternica", "Financeiro"])
     const [statusList, setStatusList]       = useState(["Aberto", "Progresso", "Atendido"])
     const [customersList, setCustomersList] = useState([{id: 1, name: "Carregado..."}])
 
-    const [matters, setMatters]       = useState(0)
-    const [status, setStatus]         = useState(0)
-    const [customer, setCustomer]     = useState(0)
+    const [matters, setMatters]       = useState(1)
+    const [status, setStatus]         = useState(1)
+    const [customer, setCustomer]     = useState(1)
     const [complement, setComplement] = useState("")
 
     const { user } = useContext(AuthContext)
 
     useEffect(() => {
+        console.log()
         async function getCustomers() {
             const customersRef = collection(db, "custumers")
 
@@ -42,6 +50,29 @@ function New() {
 
     function handleRegister(event) {
         event.preventDefault();
+        const ticketsRef = collection(db, "tickets")
+        
+        const data = {
+            id: customersList[customer].id,
+            customer: customersList[customer].name,
+            matters: matters,
+            status: status,
+            complement: complement,
+            createdBy: user.id,
+            createdAt: serverTimestamp(),
+            updatedAt: serverTimestamp(),
+
+        } 
+        addDoc(ticketsRef, data)
+        .then(() => {
+            toast.success("chamado cadastrado com sucesso")
+        })
+        .catch(() => {
+            toast.error("Ops! Algo deu errado :(")
+        })
+
+
+        console.log(data)
     }
 
     function handleChangeSelect(event) {
@@ -89,7 +120,7 @@ function New() {
                                         name="radio"
                                         value={index}
                                         onChange={handleOptionChange}
-                                        checked={status === index}
+                                        checked={status === index+1}
                                     />
                                     <span>{item}</span>
                                 </>
