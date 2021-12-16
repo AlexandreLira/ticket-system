@@ -15,14 +15,14 @@ import {
 function Customers(){
     const [ name, setName ] = useState('')
     const [ cnpj, setCnpj ] = useState('')
-    const [ adress, setAdress] = useState('')
+    const [ address, setAdress] = useState('')
 
     const customersCollectionRef = collection(db, "custumers")
 
 
     async function handleAdd(event){
         event.preventDefault()
-        if(name === '' || cnpj === '' || adress === ''){
+        if(name === '' || cnpj === '' || address === ''){
             toast.info('preencha todos os campos!')
             return
         }
@@ -31,7 +31,7 @@ function Customers(){
             id: newCustumer.id,
             name,
             cnpj,
-            adress,
+            address,
             createdAt: serverTimestamp(),
             updatedAt: serverTimestamp()
 
@@ -74,7 +74,7 @@ function Customers(){
                         <input
                             type="text"
                             placeholder="Endereço da empresa"
-                            value={adress}
+                            value={address}
                             onChange={event => setAdress(event.target.value)}
                         />
                         <button type="submit">Cadastrar</button>
