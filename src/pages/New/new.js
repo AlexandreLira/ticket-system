@@ -19,15 +19,14 @@ function New() {
     const [statusList, setStatusList]       = useState(["Aberto", "Progresso", "Atendido"])
     const [customersList, setCustomersList] = useState([{id: 1, name: "Carregado..."}])
 
-    const [matters, setMatters]       = useState(1)
-    const [status, setStatus]         = useState(1)
-    const [customer, setCustomer]     = useState(1)
+    const [matters, setMatters]       = useState(0)
+    const [status, setStatus]         = useState(0)
+    const [customer, setCustomer]     = useState(0)
     const [complement, setComplement] = useState("")
 
     const { user } = useContext(AuthContext)
 
     useEffect(() => {
-        console.log()
         async function getCustomers() {
             const customersRef = collection(db, "custumers")
 
@@ -41,6 +40,7 @@ function New() {
                 }
 
                 nameList.push(data)
+                console.log(data)
             })
             if (nameList.length === 0) return
             setCustomersList(nameList)
@@ -55,6 +55,7 @@ function New() {
         const data = {
             id: customersList[customer].id,
             customer: customersList[customer].name,
+            customerId: customersList[customer].id,
             matters: matters,
             status: status,
             complement: complement,
@@ -70,9 +71,6 @@ function New() {
         .catch(() => {
             toast.error("Ops! Algo deu errado :(")
         })
-
-
-        console.log(data)
     }
 
     function handleChangeSelect(event) {
@@ -80,7 +78,8 @@ function New() {
     }
 
     function handleOptionChange(event) {
-        setStatus(event.target.value)
+        const value = Number(event.target.value)
+        setStatus(value)
     }
 
     function handleChangeCustomer(event) {
@@ -99,7 +98,7 @@ function New() {
                         <label>Cliente</label>
                         <select value={customer} onChange={handleChangeCustomer}>
                             {customersList.map((item, index) => (
-                                <option key={index} value={item.id}>{item.name}</option>
+                                <option key={index} value={index}>{item.name}</option>
                             ))}
                         </select>
 
@@ -120,7 +119,7 @@ function New() {
                                         name="radio"
                                         value={index}
                                         onChange={handleOptionChange}
-                                        checked={status === index+1}
+                                        checked={status === index}
                                     />
                                     <span>{item}</span>
                                 </>

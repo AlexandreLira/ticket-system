@@ -76,6 +76,9 @@ table td .action svg{
 }
 
 table td .badge{
+    display: block;
+    width: 100px;
+    text-align: center;
     padding: 4px;
     border-radius: 3px;
     color: #FFF;
