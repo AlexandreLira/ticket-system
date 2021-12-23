@@ -76,12 +76,37 @@ table td .action svg{
 }
 
 table td .badge{
-    display: block;
+    display: inline-block;
     width: 100px;
     text-align: center;
     padding: 4px;
     border-radius: 3px;
     color: #FFF;
+}
+.text-more{
+    display: block;
+    color: #FFF;
+    margin: 1.5em auto;
+    text-align: center;
+    height: 35px;
+    padding: .5em 1em;
+    font-size: 1.1em;
+}
+.btn-more{
+    display: block;
+    color: #FFF;
+    margin: 1.5em auto;
+    height: 35px;
+    border: 1px solid #FFF;
+    border-radius: 7px;
+    padding: .5em 1em;
+    font-size: 1.1em;
+
+}
+
+.btn-more:hover{
+    background-color: #FFF;
+    color: #efefef;
 }
 
 @media screen and (max-width: 700px){
@@ -101,7 +126,6 @@ table td .badge{
         position: absolute;
     }
     table tr{
-        border-bottom: 3px solid;
         display: block;
         margin-bottom: 0.65em;
     }
@@ -116,9 +140,6 @@ table td .badge{
         float: left;
         font-weight: bold;
         text-transform: uppercase;
-    }
-    table tr:last-child{
-        border-bottom: 0;
     }
 }
 
