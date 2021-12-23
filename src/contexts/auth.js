@@ -7,7 +7,6 @@ import { toast } from 'react-toastify';
 import { auth, db } from '../services/firebaseConnection'
 import { 
     createUserWithEmailAndPassword,
-    onAuthStateChanged,
     signInWithEmailAndPassword,
     signOut
  } from 'firebase/auth'
