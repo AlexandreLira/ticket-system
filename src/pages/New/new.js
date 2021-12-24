@@ -7,10 +7,12 @@ import { AuthContext } from '../../contexts/auth'
 import { 
     addDoc,
     collection, 
+    doc, 
     getDocs, 
     orderBy, 
     query, 
     serverTimestamp,
+    setDoc,
 } from 'firebase/firestore'
 import { db } from '../../services/firebaseConnection'
 import { toast } from 'react-toastify'
@@ -19,9 +21,9 @@ function New() {
     const mattersList = ["Suporte", "Visita ternica", "Financeiro"]
     const statusList  = ["Aberto", "Progresso", "Atendido"]
 
-    const [matters, setMatters]       = useState(1)
-    const [status, setStatus]         = useState(1)
-    const [customer, setCustomer]     = useState(1)
+    const [matters, setMatters]       = useState(0)
+    const [status, setStatus]         = useState(0)
+    const [customer, setCustomer]     = useState(0)
     const [complement, setComplement] = useState("")
 
     const { user } = useContext(AuthContext)
@@ -48,12 +50,12 @@ function New() {
         getCustomers()
     }, [])
 
-    function handleRegister(event) {
+    async function handleRegister(event) {
         event.preventDefault();
         const ticketsRef = collection(db, "tickets")
-        
+        const newTicket = doc(ticketsRef)
         const data = {
-            id: ticketsRef.id,
+            id: newTicket.id,
             customer: customersList[customer].name,
             customerId: customersList[customer].id,
             matters: matters,
@@ -64,9 +66,13 @@ function New() {
             updatedAt: serverTimestamp(),
 
         } 
-        addDoc(ticketsRef, data)
+        await setDoc(newTicket, data)
         .then(() => {
             toast.success("chamado cadastrado com sucesso")
+            setMatters(0)
+            setStatus(0)
+            setCustomer(0)
+            setComplement("")
         })
         .catch(() => {
             toast.error("Ops! Algo deu errado :(")
@@ -77,15 +83,16 @@ function New() {
     }
 
     function handleChangeSelect(event) {
-        setMatters(event.target.value)
+        setMatters(Number(event.target.value))
     }
 
     function handleOptionChange(event) {
-        setStatus(event.target.value)
+
+        setStatus(Number(event.target.value))
     }
 
     function handleChangeCustomer(event) {
-        setCustomer(event.target.value)
+        setCustomer(Number(event.target.value))
     }
 
     return (
@@ -100,14 +107,14 @@ function New() {
                         <label>Cliente</label>
                         <select value={customer} onChange={handleChangeCustomer}>
                             {customersList.map((item, index) => (
-                                <option key={index} value={item.id}>{item.name}</option>
+                                <option key={index} value={index}>{item.name}</option>
                             ))}
                         </select>
 
                         <label>Assunto</label>
                         <select value={matters} onChange={handleChangeSelect}>
                             {mattersList.map((name, index) => (
-                                <option key={name.id} value={index}>{name}</option>
+                                <option key={index} value={index}>{name}</option>
                             ))}
                         </select>
 
@@ -121,7 +128,7 @@ function New() {
                                         name="radio"
                                         value={index}
                                         onChange={handleOptionChange}
-                                        checked={status === index+1}
+                                        checked={status === index}
                                     />
                                     <span>{item}</span>
                                 </>

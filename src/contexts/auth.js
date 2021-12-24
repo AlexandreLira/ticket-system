@@ -26,6 +26,9 @@ function AuthProvider({ children }){
     const [user, setUser] = useState(null)
     const [loadingAuth, setLoadingAuth] = useState(false)
     const [loading, setLoading] = useState(true)
+    const [showPostModal, setShowPostModal] = useState(false)
+    const [itemSelected, setItemSelected] = useState([])
+    
 
     const usersCollectionRef = collection(db, 'users')
 
@@ -111,11 +114,15 @@ function AuthProvider({ children }){
                 user, 
                 loading, 
                 loadingAuth,
+                showPostModal, 
+                itemSelected, 
                 register,
                 login,
                 logout,
                 storageUser,
-                setUser
+                setUser,
+                setShowPostModal,
+                setItemSelected
             }}
         >
             {children}

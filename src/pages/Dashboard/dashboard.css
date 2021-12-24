@@ -37,7 +37,7 @@ table{
     width: 100%;
     table-layout: fixed;
     border: 0;
-    margin: 0;
+    margin: 0 0 1.5em 0;
 }
 
 table caption{
@@ -95,12 +95,13 @@ table td .badge{
 .btn-more{
     display: block;
     color: #FFF;
-    margin: 1.5em auto;
+    margin: auto;
     height: 35px;
     border: 1px solid #FFF;
     border-radius: 7px;
     padding: .5em 1em;
     font-size: 1.1em;
+    margin-bottom: 1.5em;
 
 }
 

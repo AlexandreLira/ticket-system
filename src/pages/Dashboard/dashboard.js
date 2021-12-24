@@ -1,10 +1,4 @@
 import React, { useContext, useEffect, useState } from "react"
-import { AuthContext } from "../../contexts/auth"
-import Header from "../../components/Header/header"
-import './dashboard.css'
-import Title from "../../components/Title/title"
-import { FiMessageSquare, FiPlus, FiSearch, FiEdit2 } from 'react-icons/fi'
-import { Link } from 'react-router-dom'
 import {
     collection,
     getDocs,
@@ -15,38 +9,15 @@ import {
     where
 } from 'firebase/firestore'
 import { db } from "../../services/firebaseConnection"
-import { format } from 'date-fns'
+import { AuthContext } from "../../contexts/auth"
 
-function RenderTable({ item, index }) {
-
-    const date = format(item.createdAt.toDate(), 'dd/MM/yyyy')
-    const statusColor = ['#3583f6', '#F6a935', '#5fd204']
-    const status = ["Aberto", "Progresso", "Atendido"]
-    const matters = ["Suporte", "Visita ternica", "Financeiro"]
-    return (
-        <tr key={index.toString()}>
-            <td data-label="Cliente">{item.customer}</td>
-            <td data-label="Assunto">{matters[item.matters]}</td>
-            <td data-label="Status">
-                <span
-                    className="badge"
-                    style={{ backgroundColor: statusColor[item.status] }}
-                >
-                    {status[item.status]}
-                </span>
-            </td>
-            <td data-label="Cadastrado em">{date}</td>
-            <td data-label="#">
-                <button className="action" style={{ backgroundColor: '#3583f6' }}>
-                    <FiSearch color="#FFF" size={17} />
-                </button>
-                <button className="action" style={{ backgroundColor: '#F6a935' }}>
-                    <FiEdit2 color="#FFF" size={17} />
-                </button>
-            </td>
-        </tr>
-    )
-}
+import Header from "../../components/Header/header"
+import Title from "../../components/Title/title"
+import PostModal from "../../components/PostModal/postModal"
+import { Link } from 'react-router-dom'
+import { FiMessageSquare, FiPlus } from 'react-icons/fi'
+import './dashboard.css'
+import RenderTable from "../../components/RenderTable/renderTable"
 
 
 export default function Dashboard() {
@@ -170,6 +141,8 @@ export default function Dashboard() {
                     </div>
                 }
             </div>
+            <PostModal/>
+            
         </div>
     )
 }
