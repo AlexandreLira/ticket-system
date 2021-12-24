@@ -40,6 +40,10 @@ function Customers(){
         await setDoc(newCustumer, data)
         .then(value => {
             toast.success('cliente cadastrado com sucesso!')
+            setName("") 
+            setCnpj("")
+            setAdress("")
+        
         }).catch(error => {
             toast.warning('Algo deu errado!')
         })

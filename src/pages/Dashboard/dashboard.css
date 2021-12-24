@@ -85,7 +85,7 @@ table td .badge{
 }
 .text-more{
     display: block;
-    color: #FFF;
+    color: #181c2e;
     margin: 1.5em auto;
     text-align: center;
     height: 35px;
@@ -94,10 +94,10 @@ table td .badge{
 }
 .btn-more{
     display: block;
-    color: #FFF;
+    color: #181c2e;
     margin: auto;
     height: 35px;
-    border: 1px solid #FFF;
+    border: 1px solid #181c2e;
     border-radius: 7px;
     padding: .5em 1em;
     font-size: 1.1em;
@@ -106,7 +106,7 @@ table td .badge{
 }
 
 .btn-more:hover{
-    background-color: #FFF;
+    background-color: #181c2e;
     color: #efefef;
 }
 

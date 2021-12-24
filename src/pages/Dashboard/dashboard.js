@@ -26,7 +26,7 @@ export default function Dashboard() {
     const [loadingMore, setLoadingMore] = useState(false)
     const [isEmpty, setIsEmpty] = useState(false)
     const [lastDocs, setLastDocs] = useState(false)
-    const { user } = useContext(AuthContext)
+    const { user, showPostModal } = useContext(AuthContext)
 
     const ticketsRef = collection(db, 'tickets')
 
@@ -55,10 +55,10 @@ export default function Dashboard() {
     
             setLastDocs(lastDoc)
             setTickets(tickets => [...tickets, ...ticketsList])
-            setLoading(false)
         } else {
             setIsEmpty(true)
         }
+        setLoading(false)
         setLoadingMore(false)
         
     }
@@ -141,7 +141,8 @@ export default function Dashboard() {
                     </div>
                 }
             </div>
-            <PostModal/>
+            {showPostModal && <PostModal/>}
+            
             
         </div>
     )
